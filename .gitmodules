@@ -1,0 +1,3 @@
+[submodule "5-escrow/examples/lib/forge-std"]
+	path = 5-escrow/examples/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
