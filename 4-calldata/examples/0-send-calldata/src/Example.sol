@@ -10,15 +10,23 @@ contract A {
     constructor(address _b) {
         b = _b;
 
-        sum = iB(b).add(15, 10, 25);
+        // sum = iB(b).add(15, 10, 25);
+        (bool success, bytes memory returnData) = b.call(
+            /* In signature do not put spaces, test will fail */
+            abi.encodeWithSignature("add(uint256,uint256)", 1, 5)
+        );
+        sum = abi.decode(returnData, (uint256));
+        require(success);
     }
 }
 
 interface iB {
-    function add(uint256, uint256, uint256) external pure returns (uint256);
+    // function add(uint256, uint256, uint256) external pure returns (uint256);
+    function add(uint256, uint256) external pure returns (uint256);
 }
 
 contract B {
+    // When no signature is match
     fallback() external {
         console.logBytes(msg.data);
     }
